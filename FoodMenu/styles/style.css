@@ -1,6 +1,9 @@
 * {
   box-sizing: border-box;
   text-align: center;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 
 .search-input {
@@ -36,17 +39,16 @@
 .wrapper {
   position: fixed;
   inset: 0;
-  z-index: 10;
 }
 .wrapper-overlay {
   position: relative;
-  margin: auto;
-  width: 50%;
   top: 50%;
   transform: translateY(-50%);
+  margin: auto;
+  width: 50%;
+  padding: 15px;
   color: #fff;
   background-color: rgba(0, 0, 0, 0.8);
-  padding: 15px;
 }
 .wrapper-overlay p {
   font-size: 20px;

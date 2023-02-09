@@ -1,0 +1,51 @@
+.header {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  padding: 5px;
+  font-size: 20px;
+}
+.header-name p {
+  margin: 5px 0;
+}
+.header-name button {
+  padding: 5px;
+}
+.header-code {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #000;
+  width: 200px;
+}
+
+.container {
+  width: 60%;
+  margin: 5px auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.container-item {
+  width: 33%;
+  height: 350px;
+  border: 1px solid #000;
+  visibility: hidden;
+}
+
+.scoreboard table {
+  height: 100px;
+  text-align: center;
+  width: 100%;
+}
+.scoreboard table td,
+.scoreboard table th {
+  width: 160px;
+  border: 1px solid #000;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}/*# sourceMappingURL=main.css.map */

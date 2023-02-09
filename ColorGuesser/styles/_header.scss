@@ -1,0 +1,25 @@
+.header {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+  padding: 5px;
+  font-size: 20px;
+
+  &-name {
+    p {
+      margin: 5px 0;
+    }
+
+    button {
+      padding: 5px;
+    }
+  }
+
+  &-code {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: $basicBorder;
+    width: 200px;
+  }
+}

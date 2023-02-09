@@ -1,0 +1,71 @@
+$overlayTextColor: #fff;
+
+* {
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.search-input {
+  display: flex;
+  justify-content: center;
+
+  input {
+    margin: 0 10px;
+    width: 700px;
+    height: 50px;
+    font-size: 25px;
+  }
+
+  button {
+    padding: 5px 10px;
+  }
+}
+
+.container {
+  margin: 50px auto;
+  width: 60%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  &-card {
+    margin: 15px;
+
+    &-image {
+      margin: 5px;
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+}
+
+.overlay {
+  position: relative;
+  margin: auto;
+  width: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  color: $overlayTextColor;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 15px;
+
+  p {
+    font-size: 20px;
+    height: 200px;
+    overflow-y: auto;
+  }
+
+  a {
+    color: $overlayTextColor;
+  }
+}
+
+.wrapper-hide {
+  display: none;
+}

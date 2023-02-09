@@ -1,0 +1,12 @@
+.scoreboard {
+  table {
+    height: 100px;
+    text-align: center;
+    width: 100%;
+    td,
+    th {
+      width: 160px;
+      border: $basicBorder;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+.container {
+  width: 60%;
+  margin: 5px auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  &-item {
+    width: 33%;
+    height: 350px;
+    border: $basicBorder;
+    visibility: hidden;
+  }
+}

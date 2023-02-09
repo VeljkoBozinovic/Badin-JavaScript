@@ -44,6 +44,14 @@ async function mealSearch() {
         console.log(e);
       }
 
+      const elementOverlayClose = document.createElement("img");
+      elementOverlayClose.src = "images/close.png";
+      elementOverlayClose.addEventListener("click", () => {
+        elementOverlay.innerHTML = null;
+        elementOverlayClose.src = "";
+        elementWrapper.classList.add("wrapper-hide");
+      });
+
       const elementOverlayCategory = document.createElement("h1");
       elementOverlayCategory.innerHTML = meal.meals[0].strCategory;
       const elementOverlayRecipe = document.createElement("p");
@@ -56,6 +64,7 @@ async function mealSearch() {
       elementOverlay.appendChild(elementOverlayCategory);
       elementOverlay.appendChild(elementOverlayRecipe);
       elementOverlay.appendChild(elementOverlayLink);
+      elementWrapper.appendChild(elementOverlayClose);
       elementWrapper.classList.remove("wrapper-hide");
     });
 
@@ -79,8 +88,3 @@ async function getMealInfo(id) {
     await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
   ).json();
 }
-
-elementWrapper.addEventListener("click", () => {
-  elementOverlay.innerHTML = null;
-  elementWrapper.classList.add("wrapper-hide");
-});

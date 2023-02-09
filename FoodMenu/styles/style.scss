@@ -27,7 +27,7 @@ $overlayBackground: rgba(0, 0, 0, 0.8);
   margin: 50px auto;
   width: 60%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
 
   &-card {
     margin: 15px;
@@ -44,6 +44,12 @@ $overlayBackground: rgba(0, 0, 0, 0.8);
 .wrapper {
   position: fixed;
   inset: 0;
+
+  img {
+    position: relative;
+    bottom: 15%;
+    left: 30%;
+  }
 
   &-overlay {
     position: relative;

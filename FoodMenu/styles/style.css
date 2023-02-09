@@ -24,7 +24,7 @@
   margin: 50px auto;
   width: 60%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
 }
 .container-card {
   margin: 15px;
@@ -39,6 +39,11 @@
 .wrapper {
   position: fixed;
   inset: 0;
+}
+.wrapper img {
+  position: relative;
+  bottom: 15%;
+  left: 30%;
 }
 .wrapper-overlay {
   position: relative;

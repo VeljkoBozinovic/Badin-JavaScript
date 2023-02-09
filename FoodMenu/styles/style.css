@@ -38,8 +38,7 @@
   inset: 0;
   z-index: 10;
 }
-
-.overlay {
+.wrapper-overlay {
   position: relative;
   margin: auto;
   width: 50%;
@@ -49,12 +48,12 @@
   background-color: rgba(0, 0, 0, 0.8);
   padding: 15px;
 }
-.overlay p {
+.wrapper-overlay p {
   font-size: 20px;
   height: 200px;
   overflow-y: auto;
 }
-.overlay a {
+.wrapper-overlay a {
   color: #fff;
 }
 

@@ -2,7 +2,7 @@ const elementSearchInput = document.querySelector("input[type=search]");
 const elementSearchButton = document.querySelector(".search-input-button");
 const elementContainer = document.querySelector(".container");
 const elementWrapper = document.querySelector(".wrapper");
-const elementOverlay = document.querySelector(".overlay");
+const elementOverlay = document.querySelector(".wrapper-overlay");
 const elementNoMeals = document.querySelector(".no-meal-message");
 
 elementSearchButton.addEventListener("click", mealSearch);

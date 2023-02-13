@@ -1,0 +1,23 @@
+header {
+  .nav {
+    &-up {
+      background-color: $navBgColor;
+      display: flex;
+      justify-content: space-around;
+
+      padding: 10px;
+    }
+
+    &-down {
+      ul {
+        display: flex;
+        justify-content: center;
+        list-style-type: none;
+
+        li {
+          padding: 10px;
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,5 @@
 $navBgColor: #888;
+$navSelectedColor: #ffa500;
 $mainBgColor: #eee;
 
-$homeTitleBorder: 1px solid #000;
+$homeTitleBorder: 1px solid $navSelectedColor;

@@ -1,0 +1,16 @@
+.shop {
+  position: fixed;
+  inset: 0;
+  background-color: white;
+
+  &-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &-items {
+      text-align: center;
+      width: fit-content;
+    }
+  }
+}

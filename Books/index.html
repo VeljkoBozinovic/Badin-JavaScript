@@ -12,75 +12,53 @@
       <div class="nav">
         <div class="nav-up">
           <div class="nav-up-logo">
-            <img src="" alt="logo" />
+            <img src="images/logo.png" alt="logo" />
           </div>
           <div class="nav-up-search">
             <input type="search" />
             <button class="nav-up-search-btn">
-              <img src="" alt="search" />
+              <img src="images/lupa.png" alt="search" />
             </button>
           </div>
         </div>
         <div class="nav-down">
           <ul>
-            <li>Home</li>
-            <li>Books</li>
+            <li class="nav-down-list-item selected">Home</li>
+            <li class="nav-down-list-item">Books</li>
           </ul>
         </div>
       </div>
     </header>
     <main>
       <section class="home">
-        <div class="home-preview">
-          <div class="home-preview-title">
-            <p>Best rating</p>
+        <div class="home-wrapper">
+          <div class="home-preview">
+            <div class="home-preview-title">
+              <p>Best rating</p>
+            </div>
+            <div class="home-preview-container best-ratings-container"></div>
           </div>
-          <div class="home-preview-container">
-            <div class="home-preview-container-card best-ratings-card">
-              <img class="best-ratings-card-image" src="" alt="card1" />
-              <p class="best-ratings-card-title">Title</p>
+          <div class="home-preview">
+            <div class="home-preview-title">
+              <p>Most reviews by genre</p>
             </div>
-            <div class="home-preview-container-card best-ratings-card">
-              <img class="best-ratings-card-image" src="" alt="card2" />
-              <p class="best-ratings-card-title">Title</p>
-            </div>
-            <div class="home-preview-container-card best-ratings-card">
-              <img class="best-ratings-card-image" src="" alt="card3" />
-              <p class="best-ratings-card-title">Title</p>
-            </div>
-            <div class="home-preview-container-card best-ratings-card">
-              <img class="best-ratings-card-image" src="" alt="" />
-              <p class="best-ratings-card-title"></p>
-            </div>
-          </div>
-        </div>
-        <div class="home-preview">
-          <div class="home-preview-title">
-            <p>Most reviews by genre</p>
-          </div>
-          <div class="home-preview-container">
-            <div class="home-preview-container-card most-reviews">
-              <img class="most-reviews-card-image" src="" alt="" />
-              <p></p>
-            </div>
-            <div class="home-preview-container-card most-reviews">
-              <img class="most-reviews-card-image" src="" alt="" />
-              <p></p>
-            </div>
-            <div class="home-preview-container-card most-reviews">
-              <img class="most-reviews-card-image" src="" alt="" />
-              <p></p>
-            </div>
-            <div class="home-preview-container-card most-reviews">
-              <img class="most-reviews-card-image" src="" alt="" />
-              <p></p>
-            </div>
+            <div class="home-preview-container most-reviews-container"></div>
           </div>
         </div>
       </section>
-      <section class="Books"></section>
-      <section class="Shop"></section>
+      <section class="books hide">
+        <div class="books-container">
+          <div class="books-container-genres"></div>
+          <div class="books-container-list"></div>
+        </div>
+      </section>
+      <section class="shop hide">
+        <div class="shop-container">
+          <div class="shop-container-items"></div>
+        </div>
+      </section>
     </main>
     <script src="scripts/mainScript.js"></script>
+    <script src="scripts/minor.js"></script>
   </body>
 </html>

@@ -107,6 +107,9 @@ main .books-container-list-card {
   width: -moz-fit-content;
   width: fit-content;
 }
+.shop-container-items p:last-child {
+  cursor: pointer;
+}
 
 * {
   box-sizing: content-box;

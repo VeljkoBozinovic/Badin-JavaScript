@@ -10,7 +10,7 @@ header {
       &-search {
         padding: 35px;
 
-        input {
+        input[type="search"] {
           width: 200px;
           height: 30px;
           font-size: 16px;
@@ -23,6 +23,13 @@ header {
           img {
             width: 100%;
           }
+        }
+
+        #adult-content {
+          margin-left: 20px;
+          vertical-align: bottom;
+          width: 33px;
+          height: 36px;
         }
       }
     }

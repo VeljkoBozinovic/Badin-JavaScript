@@ -81,12 +81,12 @@ window.addEventListener("load", async () => {
   allGenres.forEach((genre) => {
     let elementGenre = document.createElement("p");
     elementGenre.innerHTML = genre;
+    elementBooksContainerGenres.appendChild(elementGenre);
+
     elementGenre.addEventListener("click", () => {
       elementBooksContainerList.innerHTML = "";
-
       loadBooks(genre);
     });
-    elementBooksContainerGenres.appendChild(elementGenre);
   });
   //books page, all books
   let loadBooks = (g) => {

@@ -11,9 +11,20 @@ const elementBooksContainerList = document.querySelector(
   ".books-container-list"
 );
 const elementShop = document.querySelector(".shop");
-const elementShopContainerItems = document.querySelector(
-  ".shop-container-items"
+const elementShopImage = document.querySelector(
+  ".shop-wrapper-container-image"
 );
+const elementShopTitle = document.querySelector(
+  ".shop-wrapper-container-info-title"
+);
+const elementShopStats = document.querySelector(
+  ".shop-wrapper-container-info-stats"
+);
+const elementShopDescription = document.querySelector(
+  ".shop-wrapper-description"
+);
+const elementShopExit = document.querySelector(".exit");
+const elementGenreTitle = document.querySelector(".home-preview-title-item");
 
 let books;
 let allGenres = [];
@@ -28,8 +39,9 @@ window.addEventListener("load", async () => {
   } catch (error) {
     console.log(error);
   }
+
   //all genres and one random, avg rating
-  books.record.results.forEach((book, i) => {
+  books.record.results.forEach((book) => {
     let currentGenres = book.genre.split(",");
     averageRating += book.rating;
 
@@ -43,75 +55,49 @@ window.addEventListener("load", async () => {
 
   let randomGenre = allGenres[Math.floor(Math.random() * (allGenresIndex - 1))];
 
+  elementGenreTitle.innerHTML += `: ${randomGenre}`;
+
   books.record.results.forEach((el) => {
-    if (el.genre.includes(randomGenre)) {
-      booksByGenre = [...booksByGenre, el];
-    }
+    if (el.genre.includes(randomGenre)) booksByGenre = [...booksByGenre, el];
   });
   //show books sorted by rating
   let sortedBooksBestRating = [...books.record.results].sort((x, y) => {
     return x.rating < y.rating ? 1 : x.rating > y.rating ? -1 : 0;
   });
 
-  for (let i = 0; i < 4; i++) {
-    if (sortedBooksBestRating[i] !== undefined) {
-      makeCard(
-        elementBestRatingsContainer,
-        "best-rating-container-card",
-        sortedBooksBestRating[i]
-      );
+  let showFirstFourOfSortedBooks = (listOfSortedBooks, elParent) => {
+    for (let i = 0; i < 4; i++) {
+      if (listOfSortedBooks[i] !== undefined)
+        makeCard(elParent, "home-preview-container-card", listOfSortedBooks[i]);
     }
-  }
+  };
+
+  showFirstFourOfSortedBooks(
+    sortedBooksBestRating,
+    elementBestRatingsContainer
+  );
   //show books form random genre sorted by reviews
   let sortedBooksMostReviews = [...booksByGenre].sort((x, y) => {
     return x.reviews < y.reviews ? 1 : x.reviews > y.reviews ? -1 : 0;
   });
 
-  for (let i = 0; i < 4; i++) {
-    if (sortedBooksMostReviews[i] !== undefined) {
-      makeCard(
-        elementMostReviewsContainer,
-        "most-reviews-container-card",
-        sortedBooksMostReviews[i]
-      );
-    }
-  }
+  showFirstFourOfSortedBooks(
+    sortedBooksMostReviews,
+    elementMostReviewsContainer
+  );
   //books page, all genres
   allGenres.sort();
   allGenres.forEach((genre) => {
-    let elementGenre = document.createElement("p");
-    elementGenre.innerHTML = genre;
-    elementBooksContainerGenres.appendChild(elementGenre);
-
-    elementGenre.addEventListener("click", () => {
-      elementBooksContainerList.innerHTML = "";
-      loadBooks(genre);
-    });
+    if (!adultContentList.includes(genre)) {
+      displayGenre(genre);
+    }
   });
   //books page, all books
-  let loadBooks = (g) => {
-    if (g === null) {
-      books.record.results.forEach((element) => {
-        makeCard(
-          elementBooksContainerList,
-          "books-container-list-card",
-          element
-        );
-      });
-    } else {
-      books.record.results.forEach((book) => {
-        if (book.genre.includes(g)) {
-          makeCard(
-            elementBooksContainerList,
-            "books-container-list-card",
-            book
-          );
-        }
-      });
+  books.record.results.forEach((book) => {
+    if (!adultContentList.some((el) => book.genre.includes(el))) {
+      makeCard(elementBooksContainerList, "books-container-list-card", book);
     }
-  };
-
-  loadBooks(null);
+  });
 });
 
 let getBooks = async () => {
@@ -135,7 +121,7 @@ let makeCard = (parent, cardClass, item) => {
 
   elementCardImage.src = item.img;
   elementCardTitle.innerHTML = item.title;
-  elementCardRating.innerHTML = item.rating;
+  elementCardRating.innerHTML = `Rating: ${item.rating}`;
 
   elementCard.appendChild(elementCardImage);
   elementCard.appendChild(elementCardTitle);
@@ -143,36 +129,57 @@ let makeCard = (parent, cardClass, item) => {
 
   elementCard.addEventListener("click", () => {
     elementShop.classList.remove("hide");
-    elementShopContainerItems.innerHTML = "";
-
-    const elementShopItem = document.createElement("div");
-    elementShopItem.classList.add(cardClass);
-    const elementShopImage = document.createElement("img");
-    const elementShopTitle = document.createElement("p");
-    const elementShopRating = document.createElement("p");
-    const elementShopDescription = document.createElement("p");
-    const elementShopExit = document.createElement("p");
 
     elementShopImage.src = item.img;
-    elementShopTitle.innerHTML = item.title;
-    elementShopRating.innerHTML = item.rating;
+    let shopTitle = document.createElement("h1");
+    shopTitle.innerHTML = item.title;
+    elementShopTitle.appendChild(shopTitle);
+    let shopAuthor = document.createElement("p");
+    shopAuthor.innerHTML = `Author: ${item.author}`;
+    let shopGenre = document.createElement("p");
+    shopGenre.innerHTML = `Genres: ${item.genre}`;
+    let shopRating = document.createElement("p");
+    shopRating.innerHTML = `Rating: ${item.rating}`;
     item.rating >= averageRating / 66
-      ? (elementShopRating.style.backgroundColor = "#0f0")
-      : (elementShopRating.style.backgroundColor = "#f00");
+      ? (shopRating.style.backgroundColor = "#0f0")
+      : (shopRating.style.backgroundColor = "#f00");
+    elementShopStats.appendChild(shopAuthor);
+    elementShopStats.appendChild(shopGenre);
+    elementShopStats.appendChild(shopRating);
     elementShopDescription.innerHTML = item.desc;
-    elementShopExit.innerHTML = "Back";
     elementShopExit.addEventListener("click", () => {
       elementShop.classList.add("hide");
+      shopTitle.innerHTML = "";
+      shopAuthor.innerHTML = "";
+      shopGenre.innerHTML = "";
+      shopRating.innerHTML = "";
     });
-
-    elementShopItem.appendChild(elementShopImage);
-    elementShopItem.appendChild(elementShopTitle);
-    elementShopItem.appendChild(elementShopRating);
-    elementShopItem.appendChild(elementShopDescription);
-
-    elementShopContainerItems.appendChild(elementShopItem);
-    elementShopContainerItems.append(elementShopExit);
   });
 
   parent.appendChild(elementCard);
+};
+
+let loadBooks = (g) => {
+  if (g === null) {
+    books.record.results.forEach((element) => {
+      makeCard(elementBooksContainerList, "books-container-list-card", element);
+    });
+  } else {
+    books.record.results.forEach((book) => {
+      if (book.genre.includes(g)) {
+        makeCard(elementBooksContainerList, "books-container-list-card", book);
+      }
+    });
+  }
+};
+
+let displayGenre = (gen) => {
+  let elementGenre = document.createElement("p");
+  elementGenre.innerHTML = gen;
+  elementGenre.addEventListener("click", () => {
+    elementBooksContainerList.innerHTML = "";
+    loadBooks(gen);
+  });
+
+  elementBooksContainerGenres.appendChild(elementGenre);
 };

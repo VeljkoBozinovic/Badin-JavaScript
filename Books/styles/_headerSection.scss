@@ -4,6 +4,7 @@ header {
       background-color: $navBgColor;
       display: flex;
       justify-content: space-around;
+      align-items: center;
 
       padding: 10px;
 
@@ -27,9 +28,9 @@ header {
 
         #adult-content {
           margin-left: 20px;
+          width: 30px;
+          height: 33px;
           vertical-align: bottom;
-          width: 33px;
-          height: 36px;
         }
       }
     }
@@ -41,7 +42,9 @@ header {
         list-style-type: none;
 
         li {
-          padding: 10px;
+          margin: 5px;
+          padding: 5px;
+          cursor: pointer;
         }
 
         .selected {

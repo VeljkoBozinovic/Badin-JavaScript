@@ -9,17 +9,13 @@ const elementCheckbox = document.querySelector("#adult-content");
 let adultContentList = [
   "Abuse",
   "Adult",
-  "Adult Fiction",
   "Asexual",
   "BDSM",
-  "Erotica",
-  "Erotic Romance",
+  "Erotic",
   "GLBT",
   "LGBT",
   "M F M",
-  "M M Contemporary",
-  "M M M",
-  "M M Romance",
+  "M M",
   "Queer",
   "Gay",
 ];
@@ -54,34 +50,29 @@ elementSearch.addEventListener("click", () => {
       makeCard(elementBooksContainerList, "books-container-list-card", element);
     }
   });
+  elementInputSearch.value = "";
 });
 
 elementCheckbox.addEventListener("change", () => {
   elementBooksContainerGenres.innerHTML = "";
+  elementBooksContainerList.innerHTML = "";
 
   if (elementCheckbox.checked) {
     allGenres.forEach((genre) => {
-      if (!adultContentList.includes(genre)) filterGenre(genre);
+      displayGenre(genre);
     });
+    loadBooks(null);
   } else {
     allGenres.forEach((genre) => {
-      filterGenre(genre);
+      if (!adultContentList.includes(genre)) {
+        displayGenre(genre);
+      }
+    });
+
+    books.record.results.forEach((book) => {
+      if (!adultContentList.some((el) => book.genre.includes(el))) {
+        makeCard(elementBooksContainerList, "books-container-list-card", book);
+      }
     });
   }
-  //JANSDPSAPNPASNBFBNSABFFABSb
-  //ASFP:A{SF<{ASFA{SPF<AP{FS}}}}
-  //ASFSAFASFFSSAFAS
-  elementBooksContainerList.innerHTML = "";
-  books.record.results.forEach((e) => {
-    console.log(adultContentList.includes(e.genre));
-    if (!adultContentList.includes(e.genre)) {
-      makeCard(elementBooksContainerList, "books-container-list-card", e);
-    }
-  });
 });
-
-let filterGenre = (gen) => {
-  let elementGenre = document.createElement("p");
-  elementGenre.innerHTML = gen;
-  elementBooksContainerGenres.appendChild(elementGenre);
-};

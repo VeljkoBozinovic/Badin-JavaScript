@@ -24,22 +24,12 @@ main {
       &-container {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
         text-align: center;
         padding: 20px 0;
 
         &-card {
           padding: 10px;
-        }
-      }
-
-      .best-rating-container {
-        &-card {
-          cursor: pointer;
-        }
-      }
-
-      .most-reviews-container {
-        &-card {
           cursor: pointer;
         }
       }
@@ -58,6 +48,7 @@ main {
         white-space: nowrap;
         text-align: left;
         height: 500px;
+        min-width: 220px;
         overflow-y: scroll;
         cursor: pointer;
 

@@ -3,18 +3,50 @@
   inset: 0;
   background-color: $shopBgColor;
 
-  &-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  &-wrapper {
+    position: relative;
+    top: 50%;
+    translate: 0 -50%;
+    margin: auto;
+    padding: 10px;
+    width: 70%;
+    background-color: $shopCardBgColor;
 
-    &-items {
-      text-align: center;
-      width: fit-content;
+    &-container {
+      display: flex;
 
-      p:last-child {
-        cursor: pointer;
+      &-info {
+        padding: 30px;
+        width: 100%;
+
+        &-title {
+          border-bottom: $shopTitleBorder;
+        }
+
+        &-stats {
+          p {
+            margin: 20px 0;
+          }
+
+          p:last-child {
+            width: fit-content;
+          }
+        }
       }
+
+      &-exit {
+        p {
+          cursor: pointer;
+        }
+      }
+    }
+
+    &-title-description {
+      border-bottom: $shopTitleBorder;
+    }
+
+    &-description {
+      margin: 20px 0;
     }
   }
 }

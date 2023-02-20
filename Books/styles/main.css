@@ -2,6 +2,7 @@ header .nav-up {
   background-color: #888;
   display: flex;
   justify-content: space-around;
+  align-items: center;
   padding: 10px;
 }
 header .nav-up-search {
@@ -21,9 +22,9 @@ header .nav-up-search button img {
 }
 header .nav-up-search #adult-content {
   margin-left: 20px;
+  width: 30px;
+  height: 33px;
   vertical-align: bottom;
-  width: 33px;
-  height: 36px;
 }
 header .nav-down ul {
   display: flex;
@@ -31,7 +32,9 @@ header .nav-down ul {
   list-style-type: none;
 }
 header .nav-down ul li {
-  padding: 10px;
+  margin: 5px;
+  padding: 5px;
+  cursor: pointer;
 }
 header .nav-down ul .selected {
   color: #ffa500;
@@ -58,16 +61,12 @@ main .home-preview-title {
 main .home-preview-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
   text-align: center;
   padding: 20px 0;
 }
 main .home-preview-container-card {
   padding: 10px;
-}
-main .home-preview .best-rating-container-card {
-  cursor: pointer;
-}
-main .home-preview .most-reviews-container-card {
   cursor: pointer;
 }
 main .books {
@@ -82,6 +81,7 @@ main .books-container-genres {
   white-space: nowrap;
   text-align: left;
   height: 500px;
+  min-width: 220px;
   overflow-y: scroll;
   cursor: pointer;
 }
@@ -103,18 +103,40 @@ main .books-container-list-card {
   inset: 0;
   background-color: #fff;
 }
-.shop-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.shop-wrapper {
+  position: relative;
+  top: 50%;
+  translate: 0 -50%;
+  margin: auto;
+  padding: 10px;
+  width: 70%;
+  background-color: #eee;
 }
-.shop-container-items {
-  text-align: center;
+.shop-wrapper-container {
+  display: flex;
+}
+.shop-wrapper-container-info {
+  padding: 30px;
+  width: 100%;
+}
+.shop-wrapper-container-info-title {
+  border-bottom: 1px solid #ffa500;
+}
+.shop-wrapper-container-info-stats p {
+  margin: 20px 0;
+}
+.shop-wrapper-container-info-stats p:last-child {
   width: -moz-fit-content;
   width: fit-content;
 }
-.shop-container-items p:last-child {
+.shop-wrapper-container-exit p {
   cursor: pointer;
+}
+.shop-wrapper-title-description {
+  border-bottom: 1px solid #ffa500;
+}
+.shop-wrapper-description {
+  margin: 20px 0;
 }
 
 * {

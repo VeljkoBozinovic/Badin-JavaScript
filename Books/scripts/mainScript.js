@@ -1,3 +1,4 @@
+const elementMain = document.querySelector("main");
 const elementBestRatingsContainer = document.querySelector(
   ".best-ratings-container"
 );
@@ -26,6 +27,7 @@ const elementShopDescription = document.querySelector(
 const elementShopExit = document.querySelector(".exit");
 const elementGenreTitle = document.querySelector(".home-preview-title-item");
 
+let JSONbooks;
 let books;
 let allGenres = [];
 let allGenresIndex = 0;
@@ -35,13 +37,14 @@ let averageRating = 0;
 window.addEventListener("load", async () => {
   //all books form api
   try {
-    books = await getBooks();
+    JSONbooks = await getBooks();
+    books = JSONbooks.results;
   } catch (error) {
     console.log(error);
   }
 
   //all genres and one random, avg rating
-  books.record.results.forEach((book) => {
+  books.forEach((book) => {
     let currentGenres = book.genre.split(",");
     averageRating += book.rating;
 
@@ -57,11 +60,11 @@ window.addEventListener("load", async () => {
 
   elementGenreTitle.innerHTML += `: ${randomGenre}`;
 
-  books.record.results.forEach((el) => {
+  books.forEach((el) => {
     if (el.genre.includes(randomGenre)) booksByGenre = [...booksByGenre, el];
   });
   //show books sorted by rating
-  let sortedBooksBestRating = [...books.record.results].sort((x, y) => {
+  let sortedBooksBestRating = [...books].sort((x, y) => {
     return x.rating < y.rating ? 1 : x.rating > y.rating ? -1 : 0;
   });
 
@@ -93,7 +96,7 @@ window.addEventListener("load", async () => {
     }
   });
   //books page, all books
-  books.record.results.forEach((book) => {
+  books.forEach((book) => {
     if (!adultContentList.some((el) => book.genre.includes(el))) {
       makeCard(elementBooksContainerList, "books-container-list-card", book);
     }
@@ -102,14 +105,15 @@ window.addEventListener("load", async () => {
 
 let getBooks = async () => {
   return (
-    await fetch("https://api.jsonbin.io/v3/b/63a0e753dfc68e59d56c71ec/latest", {
-      method: "GET",
-      headers: {
-        "X-Master-Key":
-          "$2b$10$viPOiL/.5Te1ctsEnmquLuBHKGeK09Vp0SxT2m7wkH68/e1537nUK",
-      },
-    })
-  ).json();
+    // await fetch("https://api.jsonbin.io/v3/b/63a0e753dfc68e59d56c71ec/latest", {
+    //   method: "GET",
+    //   headers: {
+    //     "X-Master-Key":
+    //       "$2b$10$viPOiL/.5Te1ctsEnmquLuBHKGeK09Vp0SxT2m7wkH68/e1537nUK",
+    //   },
+    // })
+    (await fetch("JSON/books.json")).json()
+  );
 };
 
 let makeCard = (parent, cardClass, item) => {
@@ -129,6 +133,8 @@ let makeCard = (parent, cardClass, item) => {
 
   elementCard.addEventListener("click", () => {
     elementShop.classList.remove("hide");
+    elementMain.style.overflow = "hidden";
+    elementMain.style.height = "90vh";
 
     elementShopImage.src = item.img;
     let shopTitle = document.createElement("h1");
@@ -140,7 +146,7 @@ let makeCard = (parent, cardClass, item) => {
     shopGenre.innerHTML = `Genres: ${item.genre}`;
     let shopRating = document.createElement("p");
     shopRating.innerHTML = `Rating: ${item.rating}`;
-    item.rating >= averageRating / 66
+    item.rating >= averageRating / books.length
       ? (shopRating.style.backgroundColor = "#0f0")
       : (shopRating.style.backgroundColor = "#f00");
     elementShopStats.appendChild(shopAuthor);
@@ -153,6 +159,8 @@ let makeCard = (parent, cardClass, item) => {
       shopAuthor.innerHTML = "";
       shopGenre.innerHTML = "";
       shopRating.innerHTML = "";
+      elementMain.style.overflow = "auto";
+      elementMain.style.height = "auto";
     });
   });
 
@@ -161,11 +169,11 @@ let makeCard = (parent, cardClass, item) => {
 
 let loadBooks = (g) => {
   if (g === null) {
-    books.record.results.forEach((element) => {
+    books.forEach((element) => {
       makeCard(elementBooksContainerList, "books-container-list-card", element);
     });
   } else {
-    books.record.results.forEach((book) => {
+    books.forEach((book) => {
       if (book.genre.includes(g)) {
         makeCard(elementBooksContainerList, "books-container-list-card", book);
       }

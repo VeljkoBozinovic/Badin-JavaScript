@@ -26,6 +26,8 @@ elementsNavDownListItem[0].addEventListener("click", () => {
 
   elementBooks.classList.add("hide");
   elementHome.classList.remove("hide");
+
+  elementShopExit.click();
 });
 
 elementsNavDownListItem[1].addEventListener("click", () => {
@@ -34,23 +36,26 @@ elementsNavDownListItem[1].addEventListener("click", () => {
 
   elementHome.classList.add("hide");
   elementBooks.classList.remove("hide");
+
+  elementShopExit.click();
 });
 
 elementSearch.addEventListener("click", () => {
-  elementBooksContainerList.innerHTML = "";
-  books.record.results.forEach((element) => {
+  books.forEach((element) => {
     if (elementInputSearch.value === "") {
-      makeCard(elementBooksContainerList, "books-container-list-card", element);
+      elementInputSearch.focus();
     } else if (
       element.title
+        .toString()
         .toLowerCase()
-        .includes(elementInputSearch.value.toLowerCase()) &&
-      elementInputSearch.value !== ""
+        .includes(elementInputSearch.value.toLowerCase())
     ) {
+      elementBooksContainerList.innerHTML = "";
       makeCard(elementBooksContainerList, "books-container-list-card", element);
     }
   });
   elementInputSearch.value = "";
+  elementShopExit.click();
 });
 
 elementCheckbox.addEventListener("change", () => {
@@ -69,10 +74,12 @@ elementCheckbox.addEventListener("change", () => {
       }
     });
 
-    books.record.results.forEach((book) => {
+    books.forEach((book) => {
       if (!adultContentList.some((el) => book.genre.includes(el))) {
         makeCard(elementBooksContainerList, "books-container-list-card", book);
       }
     });
   }
+
+  elementShopExit.click();
 });

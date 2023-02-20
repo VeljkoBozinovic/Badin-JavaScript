@@ -43,6 +43,7 @@ header .nav-down ul .selected {
 main {
   background-color: #eee;
   padding: 20px;
+  position: relative;
 }
 main img {
   width: 200px;
@@ -99,17 +100,15 @@ main .books-container-list-card {
 }
 
 .shop {
-  position: fixed;
+  position: absolute;
   inset: 0;
   background-color: #fff;
 }
 .shop-wrapper {
   position: relative;
-  top: 50%;
-  translate: 0 -50%;
   margin: auto;
-  padding: 10px;
   width: 70%;
+  padding: 10px;
   background-color: #eee;
 }
 .shop-wrapper-container {

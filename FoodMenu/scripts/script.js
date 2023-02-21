@@ -10,7 +10,7 @@ elementSearchButton.addEventListener("click", mealSearch);
 async function mealSearch() {
   elementNoMeals.innerHTML = "";
   const searchValue = elementSearchInput.value;
-  let meals = [];
+  let meals;
 
   try {
     meals = await getMeals(searchValue);

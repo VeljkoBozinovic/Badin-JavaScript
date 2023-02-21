@@ -12,11 +12,9 @@ let adultContentList = [
   "Adult",
   "Asexual",
   "BDSM",
-  "Erotic",
   "GLBT",
   "LGBT",
   "M F M",
-  "M M",
   "Queer",
   "Gay",
 ];

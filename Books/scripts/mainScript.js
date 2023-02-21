@@ -31,6 +31,7 @@ let JSONbooks;
 let books;
 let allGenres = [];
 let allGenresIndex = 0;
+let allGenresFiltered = [];
 let booksByGenre = [];
 let averageRating = 0;
 
@@ -92,12 +93,15 @@ window.addEventListener("load", async () => {
   allGenres.sort();
   allGenres.forEach((genre) => {
     if (!adultContentList.includes(genre)) {
-      displayGenre(genre);
+      allGenresFiltered = [...allGenresFiltered, genre];
     }
   });
+  displayGenres(allGenresFiltered);
+
   //books page, all books
   books.forEach((book) => {
-    if (!adultContentList.some((el) => book.genre.includes(el))) {
+    let currentBookGenres = book.genre.split(",");
+    if (!currentBookGenres.some((el) => adultContentList.includes(el))) {
       makeCard(elementBooksContainerList, "books-container-list-card", book);
     }
   });
@@ -123,7 +127,10 @@ let makeCard = (parent, cardClass, item) => {
   const elementCardTitle = document.createElement("p");
   const elementCardRating = document.createElement("p");
 
-  elementCardImage.src = item.img;
+  item.img
+    ? (elementCardImage.src = item.img)
+    : (elementCardImage.src = `https://images.unsplash.com/photo-1510936111840-65e151ad71bb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2090&q=80`);
+
   elementCardTitle.innerHTML = item.title;
   elementCardRating.innerHTML = `Rating: ${item.rating}`;
 
@@ -136,7 +143,9 @@ let makeCard = (parent, cardClass, item) => {
     elementMain.style.overflow = "hidden";
     elementMain.style.height = "90vh";
 
-    elementShopImage.src = item.img;
+    item.img
+      ? (elementShopImage.src = item.img)
+      : (elementShopImage.src = `https://images.unsplash.com/photo-1510936111840-65e151ad71bb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2090&q=80`);
     let shopTitle = document.createElement("h1");
     shopTitle.innerHTML = item.title;
     elementShopTitle.appendChild(shopTitle);
@@ -181,13 +190,41 @@ let loadBooks = (g) => {
   }
 };
 
-let displayGenre = (gen) => {
-  let elementGenre = document.createElement("p");
-  elementGenre.innerHTML = gen;
-  elementGenre.addEventListener("click", () => {
+let displayGenres = (listOfGenresToDisplay) => {
+  let elementAllGenresBooks = document.createElement("p");
+  elementAllGenresBooks.innerHTML = "All genres";
+  elementAllGenresBooks.addEventListener("click", () => {
     elementBooksContainerList.innerHTML = "";
-    loadBooks(gen);
+    showBooksPage();
   });
+  elementBooksContainerGenres.appendChild(elementAllGenresBooks);
 
-  elementBooksContainerGenres.appendChild(elementGenre);
+  listOfGenresToDisplay.forEach((genre) => {
+    let elementGenre = document.createElement("p");
+    elementGenre.innerHTML = genre;
+    elementGenre.addEventListener("click", () => {
+      elementBooksContainerList.innerHTML = "";
+      loadBooks(genre);
+    });
+    elementBooksContainerGenres.appendChild(elementGenre);
+  });
+};
+
+let showBooksPage = () => {
+  elementBooksContainerGenres.innerHTML = "";
+  elementBooksContainerList.innerHTML = "";
+
+  if (elementCheckbox.checked) {
+    displayGenres(allGenres);
+    loadBooks(null);
+  } else {
+    displayGenres(allGenresFiltered);
+
+    books.forEach((book) => {
+      let currentBookGenres = book.genre.split(",");
+      if (!currentBookGenres.some((el) => adultContentList.includes(el))) {
+        makeCard(elementBooksContainerList, "books-container-list-card", book);
+      }
+    });
+  }
 };

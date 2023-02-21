@@ -72,7 +72,15 @@ main .home-preview-container-card {
 }
 main .books {
   margin: auto;
-  width: 70%;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+main .books-labels {
+  display: flex;
+  gap: 190px;
+  padding: 5px 0;
+  margin: 10px 0;
+  border-bottom: 1px solid #ffa500;
 }
 main .books-container {
   display: flex;
@@ -88,6 +96,9 @@ main .books-container-genres {
 }
 main .books-container-genres p {
   margin: 5px 0;
+}
+main .books-container-genres p:hover {
+  opacity: 0.5;
 }
 main .books-container-list {
   display: grid;

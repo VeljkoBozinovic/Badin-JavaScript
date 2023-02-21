@@ -3,6 +3,7 @@ const elementsNavDownListItem = document.querySelectorAll(
 );
 const elementHome = document.querySelector(".home");
 const elementBooks = document.querySelector(".books");
+const elementNavUp = document.querySelector(".nav-up-search");
 const elementSearch = document.querySelector(".nav-up-search-btn");
 const elementInputSearch = document.querySelector("input[type=search]");
 const elementCheckbox = document.querySelector("#adult-content");
@@ -26,6 +27,7 @@ elementsNavDownListItem[0].addEventListener("click", () => {
 
   elementBooks.classList.add("hide");
   elementHome.classList.remove("hide");
+  elementNavUp.classList.add("hide");
 
   elementShopExit.click();
 });
@@ -36,6 +38,7 @@ elementsNavDownListItem[1].addEventListener("click", () => {
 
   elementHome.classList.add("hide");
   elementBooks.classList.remove("hide");
+  elementNavUp.classList.remove("hide");
 
   elementShopExit.click();
 });
@@ -59,27 +62,6 @@ elementSearch.addEventListener("click", () => {
 });
 
 elementCheckbox.addEventListener("change", () => {
-  elementBooksContainerGenres.innerHTML = "";
-  elementBooksContainerList.innerHTML = "";
-
-  if (elementCheckbox.checked) {
-    allGenres.forEach((genre) => {
-      displayGenre(genre);
-    });
-    loadBooks(null);
-  } else {
-    allGenres.forEach((genre) => {
-      if (!adultContentList.includes(genre)) {
-        displayGenre(genre);
-      }
-    });
-
-    books.forEach((book) => {
-      if (!adultContentList.some((el) => book.genre.includes(el))) {
-        makeCard(elementBooksContainerList, "books-container-list-card", book);
-      }
-    });
-  }
-
+  showBooksPage();
   elementShopExit.click();
 });

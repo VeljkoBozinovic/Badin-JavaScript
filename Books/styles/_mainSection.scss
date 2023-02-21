@@ -39,7 +39,15 @@ main {
 
   .books {
     margin: auto;
-    width: 70%;
+    width: fit-content;
+
+    &-labels {
+      display: flex;
+      gap: 190px;
+      padding: 5px 0;
+      margin: 10px 0;
+      border-bottom: $mainBooksLabelsBorder;
+    }
 
     &-container {
       display: flex;
@@ -55,6 +63,10 @@ main {
 
         p {
           margin: 5px 0;
+
+          &:hover {
+            opacity: 0.5;
+          }
         }
       }
 

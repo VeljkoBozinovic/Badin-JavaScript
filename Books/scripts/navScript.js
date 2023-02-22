@@ -42,19 +42,26 @@ elementsNavDownListItem[1].addEventListener("click", () => {
 });
 
 elementSearch.addEventListener("click", () => {
-  books.forEach((element) => {
-    if (elementInputSearch.value === "") {
-      elementInputSearch.focus();
-    } else if (
-      element.title
-        .toString()
-        .toLowerCase()
-        .includes(elementInputSearch.value.toLowerCase())
-    ) {
-      elementBooksContainerList.innerHTML = "";
-      makeCard(elementBooksContainerList, "books-container-list-card", element);
-    }
-  });
+  if (elementInputSearch.value === "") {
+    elementInputSearch.focus();
+  } else {
+    elementBooksContainerList.innerHTML = "";
+    books.forEach((element) => {
+      if (
+        element.title
+          .toString()
+          .toLowerCase()
+          .includes(elementInputSearch.value.toLowerCase())
+      ) {
+        makeCard(
+          elementBooksContainerList,
+          "books-container-list-card",
+          element
+        );
+      }
+    });
+  }
+
   elementInputSearch.value = "";
   elementShopExit.click();
 });

@@ -53,11 +53,25 @@ elementSearch.addEventListener("click", () => {
           .toLowerCase()
           .includes(elementInputSearch.value.toLowerCase())
       ) {
-        makeCard(
-          elementBooksContainerList,
-          "books-container-list-card",
-          element
-        );
+        if (elementCheckbox.checked) {
+          makeCard(
+            elementBooksContainerList,
+            "books-container-list-card",
+            element
+          );
+        } else {
+          let currentBookGenres = element.genre.split(",");
+          if (!currentBookGenres.some((el) => adultContentList.includes(el))) {
+            makeCard(
+              elementBooksContainerList,
+              "books-container-list-card",
+              element
+            );
+          } else {
+            elementBooksContainerList.innerHTML =
+              "Knjiga sa sadrzajem za odrasle!";
+          }
+        }
       }
     });
   }

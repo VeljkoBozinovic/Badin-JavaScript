@@ -1,29 +1,13 @@
 const elementMain = document.querySelector("main");
-const elementBestRatingsContainer = document.querySelector(
-  ".best-ratings-container"
-);
-const elementMostReviewsContainer = document.querySelector(
-  ".most-reviews-container"
-);
-const elementBooksContainerGenres = document.querySelector(
-  ".books-container-genres"
-);
-const elementBooksContainerList = document.querySelector(
-  ".books-container-list"
-);
+const elementBestRatingsContainer = document.querySelector(".best-ratings-container");
+const elementMostReviewsContainer = document.querySelector(".most-reviews-container");
+const elementBooksContainerGenres = document.querySelector(".books-container-genres");
+const elementBooksContainerList = document.querySelector(".books-container-list");
 const elementShop = document.querySelector(".shop");
-const elementShopImage = document.querySelector(
-  ".shop-wrapper-container-image"
-);
-const elementShopTitle = document.querySelector(
-  ".shop-wrapper-container-info-title"
-);
-const elementShopStats = document.querySelector(
-  ".shop-wrapper-container-info-stats"
-);
-const elementShopDescription = document.querySelector(
-  ".shop-wrapper-description"
-);
+const elementShopImage = document.querySelector(".shop-wrapper-container-image");
+const elementShopTitle = document.querySelector(".shop-wrapper-container-info-title");
+const elementShopStats = document.querySelector(".shop-wrapper-container-info-stats");
+const elementShopDescription = document.querySelector(".shop-wrapper-description");
 const elementShopExit = document.querySelector(".exit");
 const elementGenreTitle = document.querySelector(".home-preview-title-item");
 
@@ -58,7 +42,6 @@ window.addEventListener("load", async () => {
   });
 
   let randomGenre = allGenres[Math.floor(Math.random() * (allGenresIndex - 1))];
-
   elementGenreTitle.innerHTML += `: ${randomGenre}`;
 
   books.forEach((el) => {
@@ -75,20 +58,14 @@ window.addEventListener("load", async () => {
         makeCard(elParent, "home-preview-container-card", listOfSortedBooks[i]);
     }
   };
+  showFirstFourOfSortedBooks(sortedBooksBestRating, elementBestRatingsContainer);
 
-  showFirstFourOfSortedBooks(
-    sortedBooksBestRating,
-    elementBestRatingsContainer
-  );
   //show books form random genre sorted by reviews
   let sortedBooksMostReviews = [...booksByGenre].sort((x, y) => {
     return x.reviews < y.reviews ? 1 : x.reviews > y.reviews ? -1 : 0;
   });
+  showFirstFourOfSortedBooks(sortedBooksMostReviews, elementMostReviewsContainer);
 
-  showFirstFourOfSortedBooks(
-    sortedBooksMostReviews,
-    elementMostReviewsContainer
-  );
   //books page, all genres
   allGenres.sort();
   allGenres.forEach((genre) => {
@@ -107,6 +84,7 @@ window.addEventListener("load", async () => {
   });
 });
 
+// my functions
 let getBooks = async () => {
   return (
     // await fetch("https://api.jsonbin.io/v3/b/63a0e753dfc68e59d56c71ec/latest", {
@@ -134,9 +112,7 @@ let makeCard = (parent, cardClass, item) => {
   elementCardTitle.innerHTML = item.title;
   elementCardRating.innerHTML = `Rating: ${item.rating}`;
 
-  elementCard.appendChild(elementCardImage);
-  elementCard.appendChild(elementCardTitle);
-  elementCard.appendChild(elementCardRating);
+  elementCard.append(elementCardImage, elementCardTitle, elementCardRating);
 
   elementCard.addEventListener("click", () => {
     elementShop.classList.remove("hide");
@@ -146,6 +122,7 @@ let makeCard = (parent, cardClass, item) => {
     item.img
       ? (elementShopImage.src = item.img)
       : (elementShopImage.src = `https://images.unsplash.com/photo-1510936111840-65e151ad71bb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2090&q=80`);
+
     let shopTitle = document.createElement("h1");
     shopTitle.innerHTML = item.title;
     elementShopTitle.appendChild(shopTitle);
@@ -158,9 +135,7 @@ let makeCard = (parent, cardClass, item) => {
     item.rating >= averageRating / books.length
       ? (shopRating.style.backgroundColor = "#0f0")
       : (shopRating.style.backgroundColor = "#f00");
-    elementShopStats.appendChild(shopAuthor);
-    elementShopStats.appendChild(shopGenre);
-    elementShopStats.appendChild(shopRating);
+    elementShopStats.append(shopAuthor, shopGenre, shopRating);
     elementShopDescription.innerHTML = item.desc;
     elementShopExit.addEventListener("click", () => {
       elementShop.classList.add("hide");
@@ -181,13 +156,14 @@ let loadBooks = (g) => {
     books.forEach((element) => {
       makeCard(elementBooksContainerList, "books-container-list-card", element);
     });
-  } else {
-    books.forEach((book) => {
-      if (book.genre.includes(g)) {
-        makeCard(elementBooksContainerList, "books-container-list-card", book);
-      }
-    });
+    return;
   }
+
+  books.forEach((book) => {
+    if (book.genre.includes(g)) {
+      makeCard(elementBooksContainerList, "books-container-list-card", book);
+    }
+  });
 };
 
 let displayGenres = (listOfGenresToDisplay) => {
@@ -217,14 +193,14 @@ let showBooksPage = () => {
   if (elementCheckbox.checked) {
     displayGenres(allGenres);
     loadBooks(null);
-  } else {
-    displayGenres(allGenresFiltered);
-
-    books.forEach((book) => {
-      let currentBookGenres = book.genre.split(",");
-      if (!currentBookGenres.some((el) => adultContentList.includes(el))) {
-        makeCard(elementBooksContainerList, "books-container-list-card", book);
-      }
-    });
+    return;
   }
+
+  displayGenres(allGenresFiltered);
+  books.forEach((book) => {
+    let currentBookGenres = book.genre.split(",");
+    if (!currentBookGenres.some((el) => adultContentList.includes(el))) {
+      makeCard(elementBooksContainerList, "books-container-list-card", book);
+    }
+  });
 };

@@ -1,6 +1,4 @@
-const elementsNavDownListItem = document.querySelectorAll(
-  ".nav-down-list-item"
-);
+const elementsNavDownListItem = document.querySelectorAll(".nav-down-list-item");
 const elementHome = document.querySelector(".home");
 const elementBooks = document.querySelector(".books");
 const elementNavUp = document.querySelector(".nav-up-search");
@@ -10,6 +8,7 @@ const elementCheckbox = document.querySelector("#adult-content");
 let adultContentList = [
   "Abuse",
   "Adult",
+  "Adult Fiction",
   "Asexual",
   "BDSM",
   "GLBT",
@@ -44,37 +43,30 @@ elementsNavDownListItem[1].addEventListener("click", () => {
 elementSearch.addEventListener("click", () => {
   if (elementInputSearch.value === "") {
     elementInputSearch.focus();
-  } else {
-    elementBooksContainerList.innerHTML = "";
-    books.forEach((element) => {
-      if (
-        element.title
-          .toString()
-          .toLowerCase()
-          .includes(elementInputSearch.value.toLowerCase())
-      ) {
-        if (elementCheckbox.checked) {
-          makeCard(
-            elementBooksContainerList,
-            "books-container-list-card",
-            element
-          );
-        } else {
-          let currentBookGenres = element.genre.split(",");
-          if (!currentBookGenres.some((el) => adultContentList.includes(el))) {
-            makeCard(
-              elementBooksContainerList,
-              "books-container-list-card",
-              element
-            );
-          } else {
-            elementBooksContainerList.innerHTML =
-              "Knjiga sa sadrzajem za odrasle!";
-          }
-        }
-      }
-    });
+    return;
   }
+
+  elementBooksContainerList.innerHTML = "";
+
+  books.forEach((element) => {
+    if (!element.title.toString().toLowerCase().includes(elementInputSearch.value.toLowerCase()))
+      return;
+
+    if (elementCheckbox.checked) {
+      makeCard(elementBooksContainerList, "books-container-list-card", element);
+      return;
+    }
+    if (!elementCheckbox.checked) {
+      let currentBookGenres = element.genre.split(",");
+
+      if (currentBookGenres.some((el) => adultContentList.includes(el))) {
+        elementBooksContainerList.innerHTML = "Sadrzaj za odrasle se ne prikazuje!";
+        return;
+      }
+
+      makeCard(elementBooksContainerList, "books-container-list-card", element);
+    }
+  });
 
   elementInputSearch.value = "";
   elementShopExit.click();

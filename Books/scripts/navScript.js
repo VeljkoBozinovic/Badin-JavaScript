@@ -5,6 +5,7 @@ const elementNavUp = document.querySelector(".nav-up-search");
 const elementSearch = document.querySelector(".nav-up-search-btn");
 const elementInputSearch = document.querySelector("input[type=search]");
 const elementCheckbox = document.querySelector("#adult-content");
+
 let adultContentList = [
   "Abuse",
   "Adult",
@@ -36,6 +37,8 @@ elementsNavDownListItem[1].addEventListener("click", () => {
   elementHome.classList.add("hide");
   elementBooks.classList.remove("hide");
   elementNavUp.classList.remove("hide");
+
+  elementAllGenresBooks.click();
 
   elementShopExit.click();
 });

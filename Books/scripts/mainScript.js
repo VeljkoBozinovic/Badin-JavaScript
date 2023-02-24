@@ -18,6 +18,7 @@ let allGenresIndex = 0;
 let allGenresFiltered = [];
 let booksByGenre = [];
 let averageRating = 0;
+let elementAllGenresBooks;
 
 window.addEventListener("load", async () => {
   //all books form api
@@ -66,7 +67,7 @@ window.addEventListener("load", async () => {
   });
   showFirstFourOfSortedBooks(sortedBooksMostReviews, elementMostReviewsContainer);
 
-  //books page, all genres
+  //books page, all genres IAOSDOANHDNBSAIOAUIFS
   allGenres.sort();
   allGenres.forEach((genre) => {
     if (!adultContentList.includes(genre)) {
@@ -74,14 +75,6 @@ window.addEventListener("load", async () => {
     }
   });
   displayGenres(allGenresFiltered);
-
-  //books page, all books
-  books.forEach((book) => {
-    let currentBookGenres = book.genre.split(",");
-    if (!currentBookGenres.some((el) => adultContentList.includes(el))) {
-      makeCard(elementBooksContainerList, "books-container-list-card", book);
-    }
-  });
 });
 
 // my functions
@@ -167,7 +160,7 @@ let loadBooks = (g) => {
 };
 
 let displayGenres = (listOfGenresToDisplay) => {
-  let elementAllGenresBooks = document.createElement("p");
+  elementAllGenresBooks = document.createElement("p");
   elementAllGenresBooks.innerHTML = "All genres";
   elementAllGenresBooks.addEventListener("click", () => {
     elementBooksContainerList.innerHTML = "";
